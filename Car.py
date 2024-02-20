@@ -1,9 +1,9 @@
-from Vehicle import Vehicle
-from Constants import Constants
+from vehicle import vehicle
+from constants import constants
 
-class Car(Vehicle):
+class Car(vehicle):
     def Accelerate(self, seconds_delta):
-        self.SetCurrentSpeed(self.GetCurrentSpeed() + Constants.AccRate * seconds_delta * Constants.MpsToMph)
+        self.SetCurrentSpeed(self.GetCurrentSpeed() + constants.AccRate * seconds_delta * constants.MpsToMph)
 
     def Decelerate(self, seconds_delta):
-        self.SetCurrentSpeed(self.GetCurrentSpeed() - Constants.DecRate * seconds_delta * Constants.MpsToMph)
+        self.SetCurrentSpeed(self.GetCurrentSpeed() - constants.DecRate * seconds_delta * constants.MpsToMph)
