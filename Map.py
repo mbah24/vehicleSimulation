@@ -1,6 +1,12 @@
 class Map:
     def __init__(self):
-        self.road_items = []
-
-    def AddRoadItem(self, road_item):
-        self.road_items.append(road_item)
+        self.roads = []
+        
+    def add_road(self, road):
+        self.roads.append(road)
+        
+    def print(self, print_driver, obj):
+        for road in self.roads:
+            road.Print(print_driver, obj)
+        
+    

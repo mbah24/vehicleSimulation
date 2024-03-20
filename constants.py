@@ -6,3 +6,8 @@ class Constants:
     DecRateEmpty = 5.0
     DecRateFull = 2.0
     MpsToMph = 2.237
+    MpsToKph = 3.6
+    MetersToMiles = 0.000621371
+    MetersToKm = 0.001
+    CharMapSize = 40
+    WorldSize = 200.0

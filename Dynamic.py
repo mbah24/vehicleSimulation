@@ -1,4 +1,4 @@
-from RoadItem import RoadItem
+from Road import RoadItem
 
 class Dynamic(RoadItem):
     def Update(self, seconds):

@@ -1,6 +1,6 @@
 
 from Color import Color
-from RoadItem import RoadItem
+from Road import RoadItem
 
 class TrafficLight(RoadItem):  
     def __init__(self, mile_marker, current_road, next_item, prev_item, red_time, yellow_time, green_time, lit, time_on):
