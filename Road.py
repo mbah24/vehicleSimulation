@@ -7,16 +7,14 @@ class Heading(Enum):
     West = 4
 
 class Road:
-    NumOfRoads = 0
-
-    def __init__(self, streetName, locX, locY, length, hdg):
-        self.name = streetName
-        self.length = length
-        self.xlocation = locX
+    def __init__(self, name, locX, locY, length, heading):
+        self.name = name
+        self.xlocation = locX  # Ensure this is correctly named and set
         self.ylocation = locY
-        self.heading = hdg
-        Road.NumOfRoads += 1
-
+        self.length = length
+        self.heading = heading
+        self.dynamic_items = []
+       
     def get_length(self):
         return self.length
 
@@ -32,8 +30,21 @@ class Road:
     def get_road_name(self):
         return self.name
     
-    def Print(self, print_driver, obj):
-        print_driver.print_road(self, obj)
+    def add_roaditem(self, item):
+        self.dynamic_items.append(item)
+
+    def Print(self, print_driver, char_matix):
+        # Implement the logic to print the road details using the provided print_driver
+        print_driver.print_road(self, char_matix)
+        for item in self.dynamic_items:
+            if hasattr(item, 'print_item'):
+                item.print_item(char_matix)
+            
+    
+    def calculate_x_location(self, item):
+        # Example logic, adjust based on your specific needs
+        return int(self.xlocation + item.mile_marker)  # This is a placeholder
+
 
     # Methods like AddRoadItem can be added here if needed
 

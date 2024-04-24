@@ -72,10 +72,9 @@ class MetricGUI(GUI):
     def set_speed_limit(self, vehicle: Vehicle, speed: float) -> None:
         vehicle.set_desired_speed(speed / Constants.MpsToKph)
 
-    def create_road(self, name, locx, locy, len, hdg):
-        # Implementation based on Metric system from C# MetricGUI
-        return Road(name, locx / Constants.MetersToKm, locy / Constants.MetersToKm, len / Constants.MetersToKm, hdg)
-
+    def create_road(self, name, locX, locY, length, heading):
+        return Road(name, locX, locY, length, heading)
+    
 class ImperialGUI(GUI):
     def get_speed(self, vehicle: Vehicle) -> float:
         # return vehicle.get_current_speed() * Constants.MpsToMph

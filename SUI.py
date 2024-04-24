@@ -3,6 +3,7 @@ import numpy as np
 from Common import Conversions
 from constants import Constants
 from Road import Heading  
+from time import sleep
 
 class CharMatrix:
     def __init__(self, char_map_size):
@@ -66,6 +67,17 @@ class ConsolePrint(IPrintDriver):
                         cm.map[y + 4][x] = '-'
                     distance += 1
         # Similar implementation for other headings...
+    def update_lights(self):
+            while True:
+                for position, (state, duration) in self.light_states.items():
+                    self.current_state[position] = state
+                    self.traffic_lights[position] = state  # Update current state
+                    sleep(duration)
+                    next_state = {'red': '-', 'yellow': 'O', 'green': 'X'}
+                    self.current_state[position] = next_state[state]
+                    self.traffic_lights[position] = next_state[state]
+
+
 
     def print_car(self, car, obj):
         pass  # Implementation depends on Car class structure and how it's represented in CharMatrix
