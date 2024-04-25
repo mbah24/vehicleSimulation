@@ -5,6 +5,6 @@ class Map:
     def add_road(self, road):
         self.roads.append(road)
 
-    def print(self, print_driver, char_matrix):
+    def display(self, print_driver, obj):  # Renamed from 'print' to 'display'
         for road in self.roads:
-            road.Print(print_driver, char_matrix)  # Correctly reference Print with uppercase P
+            road.print(print_driver, obj)  # Assuming 'print' in 'Road' is correct; otherwise, adjust as needed.

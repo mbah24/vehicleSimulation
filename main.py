@@ -5,38 +5,38 @@ from constants import Constants
 from gui import *
 from Map import *
 from SUI import *
-from simulation import *
 import time
-from char_matrix import *
+
 def main():
-    cm = CharMatrix(Constants.CharMapSize)
-    cp = ConsolePrint()
-    sim = Simulation(cp)
+    sim = Simulation()
     simInput = MetricGUI()
-    
-    
-    Uptown = simInput.create_road("Uptown", 0.0, -0.09, 0.180, Heading.North)
+
+    # Create a Road
+    Uptown = simInput.create_road("Uptown", 0.0, -0.09, .180, Heading.North)
+
+    cm = CharMatrix(Constants.CharMapSize)
     map_obj = Map()
     map_obj.add_road(Uptown)
-    map_obj.print(cp, cm)  # Initial road drawing
+    cp = ConsolePrint()
+    map_obj.display(cp, cm)  # Use the new method name 'display'
 
-    tl1 = TrafficLight(position=18, red_duration=5, yellow_duration=3, green_duration=5, start_color='red', road=Uptown)
-    tl2 = TrafficLight(position=36, green_duration=5, yellow_duration=3, red_duration=3, start_color='green', road=Uptown)
+    # Setup Traffic Lights
+    tl1 = TrafficLight(mile_marker=18, green_duration=10, yellow_duration=3, red_duration=6)
+    tl2 = TrafficLight(mile_marker=26, green_duration=8, yellow_duration=3, red_duration=4)
     traffic_lights = [tl1, tl2]
 
-    for _ in range(20):
+    for i in range(20):
         for tl in traffic_lights:
             tl.update()
 
         sim.print_lights(traffic_lights, cm)
 
-        for row in cm.map:
-            print("".join(row))
+        for j in range(Constants.CharMapSize):
+            print("".join(cm.map[j]))
+
         time.sleep(1)
-        cm = CharMatrix(Constants.CharMapSize)  # Reset matrix to clear old prints
-        map_obj.print(cp, cm)  # Redraw the road for each cycle
 
-
+        sim.clear_screen()
 
 if __name__ == "__main__":
     main()

@@ -1,27 +1,31 @@
 from enum import Enum
-
+from abc import ABC,abstractmethod
+# Heading enum translated from C#
 class Heading(Enum):
     North = 1
     South = 2
     East = 3
     West = 4
 
+# Updated Road class integrating both existing and translated features
 class Road:
-    def __init__(self, name, locX, locY, length, heading):
+    NumOfRoads = 0  # Static variable from translated code
+
+    def __init__(self, name, locX=None, locY=None, len=None, hdg=None):
         self.name = name
-        self.xlocation = locX  # Ensure this is correctly named and set
+        self.length = len
+        self.heading = hdg
+        self.xlocation = locX
         self.ylocation = locY
-        self.length = length
-        self.heading = heading
-        self.dynamic_items = []
-       
+        Road.NumOfRoads += 1
+ 
     def get_length(self):
         return self.length
 
-    def get_x_location(self):
+    def get_xlocation(self):
         return self.xlocation
 
-    def get_y_location(self):
+    def get_ylocation(self):
         return self.ylocation
 
     def get_heading(self):
@@ -29,29 +33,19 @@ class Road:
 
     def get_road_name(self):
         return self.name
-    
-    def add_roaditem(self, item):
-        self.dynamic_items.append(item)
 
-    def Print(self, print_driver, char_matix):
-        # Implement the logic to print the road details using the provided print_driver
-        print_driver.print_road(self, char_matix)
-        for item in self.dynamic_items:
-            if hasattr(item, 'print_item'):
-                item.print_item(char_matix)
-            
-    
-    def calculate_x_location(self, item):
-        # Example logic, adjust based on your specific needs
-        return int(self.xlocation + item.mile_marker)  # This is a placeholder
+    def add_roaditem(self, roaditem):
+        print(f"Road item added: {roaditem}")
+
+    def print(self, print_driver, obj):
+        print_driver.print_road(self, obj)
 
 
-    # Methods like AddRoadItem can be added here if needed
-
+# Preserving the existing RoadItem class
 class RoadItem:
-    def __init__(self):
-        self.mile_marker = None
-        self.current_road = None
+    def __init__(self,mile_marker,current_road = None):
+        self.mile_marker = mile_marker
+        self.current_road = current_road
         self.next_item = None
         self.prev_item = None
 
@@ -76,11 +70,20 @@ class RoadItem:
     def SetNext(self, item):
         self.nextitem = item
 
-class Dynamic(RoadItem):
-    def __init__(self):
-        super().__init__()
-        self.upDate = 0
-      
+
+class Dynamic(RoadItem, ABC):
+    def __init__(self,mile_marker,current_road = None):
+        super().__init__(mile_marker)
+        self.mile_marker = mile_marker
+        self.current_road = current_road
+    
+    @abstractmethod
+
+    def update(self, seconds: int):
+        pass
+
+        
 class Static(RoadItem):
     def __init__(self):
         super().__init__()
+
